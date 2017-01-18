@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>同步倒计时</title>
+  <script type="text/javascript" src="jquery-1.12.3.min.js"></script>
+</head>
+<body>
+	
+<span id="timebox1">11:21:55</span> <!--//第一次将服务器时间显示在这里-->
+<script type="text/javascript">
+  $(function () {
+    var oTime = $("#timebox1");
+    var ts = oTime.text().split(":", 3);
+    var tnums = [parseInt(ts[0]), parseInt(ts[1]), parseInt(ts[2])];
+    setInterval(function () {
+      tnums = getNextTimeNumber(tnums[0], tnums[1], tnums[2]);
+      showNewTime(tnums[0], tnums[1], tnums[2]);
+    }, 1000);
+    function showNewTime(h, m, s) {
+      var timeStr = ("0" + h.toString()).substr(-2) + ":"
+              + ("0" + m.toString()).substr(-2) + ":"
+              + ("0" + s.toString()).substr(-2);
+      oTime.text(timeStr);
+    }
+    function getNextTimeNumber(h, m, s) {
+      if (++s == 60) {
+        s = 0;
+      }
+      if (s == 0) {
+        if (++m == 60) {
+          m = 0;
+        }
+      }
+      if (m == 0) {
+        if (++h == 24) {
+          h = 0;
+        }
+      }
+      return [h, m, s];
+    }
+  });
+</script>
+	
+	
+	<br />
+	<!--假设：1天00时00分12秒是从服务器获取的倒计时数据-->	
+	<span id="timebox">1天10时30分12秒</span> 
+  	<script type="text/javascript">
+	    $(function () {
+	      var tid = setInterval(function () {
+	        var oTimebox = $("#timebox");
+	        var syTime = oTimebox.text();
+	        var totalSec = getTotalSecond(syTime) - 1;
+	        if (totalSec >= 0) {
+	          oTimebox.text(getNewSyTime(totalSec));
+	        } else {
+	          clearInterval(tid);
+	        }
+	  
+	      }, 1000);
+	  
+	      //根据剩余时间字符串计算出总秒数
+	      function getTotalSecond(timestr) {
+	        var reg = /\d+/g;
+	        var timenums = new Array();
+	        while ((r = reg.exec(timestr)) != null) {
+	          timenums.push(parseInt(r));
+	        }
+	        var second = 0, i = 0;
+	        if (timenums.length == 4) {
+	          second += timenums[0] * 24 * 3600;
+	          i = 1;
+	        }
+	        second += timenums[i] * 3600 + timenums[++i] * 60 + timenums[++i];
+	        return second;
+	      }
+	  
+	      //根据剩余秒数生成时间格式
+	      function getNewSyTime(sec) {
+	        var s = sec % 60;
+	        sec = (sec - s) / 60; //min
+	        var m = sec % 60;
+	        sec = (sec - m) / 60; //hour
+	        var h = sec % 24;
+	        var d = (sec - h) / 24;//day
+	        var syTimeStr = "";
+	        if (d > 0) {
+	          syTimeStr += d.toString() + "天";
+	        }
+	  
+	        syTimeStr += ("0" + h.toString()).substr(-2) + "时"
+	              + ("0" + m.toString()).substr(-2) + "分"
+	              + ("0" + s.toString()).substr(-2) + "秒";
+	  
+	        return syTimeStr;
+	      }
+	  
+	    });
+  	</script>
+  	
+  	
+  	<span id="timebox2">0天00时00分12秒</span> 
+  	<script type="text/javascript">
+  		$(function(){
+  			$('#timebox2').text(getNewSyTime('262.2'))
+
+  			//根据剩余秒数生成时间格式
+		    function getNewSyTime(sec) {
+		        var s = sec % 60;
+		        sec = (sec - s) / 60; //min
+		        var m = sec % 60;
+		        sec = (sec - m) / 60; //hour
+		        var h = sec % 24;
+		        var d = (sec - h) / 24;//day
+		        var syTimeStr = "";
+		        if (d > 0) {
+		          syTimeStr += d.toString() + "天";
+		        }
+		  
+		        syTimeStr += ("0" + h.toString()).substr(-2) + "时"
+		              + ("0" + m.toString()).substr(-2) + "分"
+		              + ("0" + s.toString()).substr(-2) + "秒";
+		  
+		        return syTimeStr;
+		    }
+  		})
+  	</script>
+  	
+  	
+  	
+</body>
+</html>
