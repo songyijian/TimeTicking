@@ -1,41 +1,41 @@
 /*
-	TimeTicking 2.1.0 å€’è®¡æ—¶ç»„ä»¶ï¼ˆæŒ‡å®šå¹´æœˆæ—¥ || æŒ‡å®šå¤šé•¿æ—¶é—´å || æŒ‡å®šå¤šå°‘æ¬¡ ï¼‰
-	ä½œè€…ï¼šsongyijian 
-	å‘å¸ƒï¼š2016.10.20
+	TimeTicking 2.1.0 µ¹¼ÆÊ±×é¼ş£¨Ö¸¶¨ÄêÔÂÈÕ || Ö¸¶¨¶à³¤Ê±¼äºó || Ö¸¶¨¶àÉÙ´Î £©
+	×÷Õß£ºsongyijian 
+	·¢²¼£º2016.10.20
 			2017.1.16
 	
 	API
 		new TimeTicking({
-			stopdata:"Jun 14, 2018 0:0:01", 	//* è·ç¦»æ—¶é—´	// Januaryã€Februaryã€Marchã€Aprilã€Mayã€Juneã€ Julyã€Augustã€Septemberã€Octoberã€Novemberã€December 
-			type:'date',						//date:ç›®æ ‡æ—¥æœŸ(å¹´æœˆæ—¥);	long:å¤šé•¿æ—¶é—´å†…; site æ¬¡æ•° 
-			setIntervalData:1000, 				//å€’è®¡æ—¶åˆ·æ–°é¢‘ç‡(æ¯«ç§’)ï¼Œä¸å¡«ä¸åˆ·æ–°
-			initFn:function(_this){	},			//åˆå§‹åŒ–å›è°ƒ
-			timeFn:function(_this){	},			//å€’è®¡æ—¶è¿›ç¨‹å›è°ƒ o === this
-			timeOverFn:function(_this){	}		//å€’è®¡æ—¶ç»“æŸå›è°ƒ 
+			stopdata:"Jun 14, 2018 0:0:01", 	//* ¾àÀëÊ±¼ä	// January¡¢February¡¢March¡¢April¡¢May¡¢June¡¢ July¡¢August¡¢September¡¢October¡¢November¡¢December 
+			type:'date',						//date:Ä¿±êÈÕÆÚ(ÄêÔÂÈÕ);	long:¶à³¤Ê±¼äÄÚ; site ´ÎÊı 
+			setIntervalData:1000, 				//µ¹¼ÆÊ±Ë¢ĞÂÆµÂÊ(ºÁÃë)£¬²»Ìî²»Ë¢ĞÂ
+			initFn:function(_this){	},			//³õÊ¼»¯»Øµ÷
+			timeFn:function(_this){	},			//µ¹¼ÆÊ±½ø³Ì»Øµ÷ o === this
+			timeOverFn:function(_this){	}		//µ¹¼ÆÊ±½áÊø»Øµ÷ 
 		})
 		
 		ATTR 
-			dateç±»å‹ï¼š
-				this.tdate.t  	//å¤©
-				this.tdate.s	//å°æ—¶
-				this.tdate.f	//åˆ†é’Ÿ
-				this.tdate.m	//ç§’
+			dateÀàĞÍ£º
+				this.tdate.t  	//Ìì
+				this.tdate.s	//Ğ¡Ê±
+				this.tdate.f	//·ÖÖÓ
+				this.tdate.m	//Ãë
 			
-			long || siteç±»å‹ï¼š
-				longPast	//longç±»å‹ï¼Œå·²ç»è¿‡å»å¤šé•¿æ—¶é—´
-				pastnumber	//å¤šå°‘æ¬¡
+			long || siteÀàĞÍ£º
+				longPast	//longÀàĞÍ£¬ÒÑ¾­¹ıÈ¥¶à³¤Ê±¼ä
+				pastnumber	//¶àÉÙ´Î
 */
 
 !function(){
 	function TimeTicking(obj){
 		if(!obj.stopdata){
-			console.error(' stopdata æ²¡æœ‰å¡«å†™')
+			console.error(' stopdata Ã»ÓĞÌîĞ´')
 			return false;
 		};
 		this.data={
-			type:obj.type || 'date',	//date:ç›®æ ‡æ—¥æœŸ;	long:å¤šé•¿æ—¶é—´åè‡ªåŠ¨ç»“æŸï¼›site æ¬¡æ•° 
+			type:obj.type || 'date',	//date:Ä¿±êÈÕÆÚ;	long:¶à³¤Ê±¼äºó×Ô¶¯½áÊø£»site ´ÎÊı 
 			stopdata:obj.stopdata,		//"Jun 23, 2017 00:00:01"
-			setIntervalData:  obj.setIntervalData && typeof obj.setIntervalData === "number" ? obj.setIntervalData : false,	//ä¸å°äº1000ï¼ˆ1ç§’ï¼‰
+			setIntervalData:  obj.setIntervalData && typeof obj.setIntervalData === "number" ? obj.setIntervalData : false,	//²»Ğ¡ÓÚ1000£¨1Ãë£©
 			initFn:obj.initFn || function(o){},
 			timeOverFn:obj.timeOverFn || function(o){},
 			timeFn:obj.timeFn || function(o){}
@@ -59,7 +59,7 @@
 		//long
 		if(this.data.type ==='long'){
 			if(typeof this.data.stopdata !== 'number'){
-				console.error('stopdata ä¸æ˜¯number ç±»å‹  ' )
+				console.error('stopdata ²»ÊÇnumber ÀàĞÍ  ' )
 				return;
 			}
 			clearInterval(this.ntimego)
@@ -72,7 +72,7 @@
 		//site
 		if(this.data.type ==='site'){
 			if(typeof this.data.stopdata !== 'number'){
-				console.error('stopdata ä¸æ˜¯number ç±»å‹  ' )
+				console.error('stopdata ²»ÊÇnumber ÀàĞÍ  ' )
 				return;
 			}
 			clearInterval(this.ntimego)
@@ -96,7 +96,7 @@
 	
 	
 	TimeTicking.prototype.timeTrade=function(){
-		//è½¬æˆç§’ è¿™ä¸ªå¾ˆé‡è¦
+		//×ª³ÉÃë Õâ¸öºÜÖØÒª
 		this.minusT=(this.futureT - new Date().getTime())/1000;
 		if(this.minusT <= 0 || this.minusT*1000 < this.data.setIntervalData){
 			this.tdate.t=this.tdate.s=this.tdate.f=this.tdate.m=0;

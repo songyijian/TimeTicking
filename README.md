@@ -1,10 +1,8 @@
-# 倒计时组件第一次GitHub 更新
+# TimeTicking.2.0.0     倒计时 定时刷新 组件
 
-## TimeTicking.2.0.0
-
-###API
+## API
  
-** 配置 **
+* 配置
 
 ```
 new TimeTicking({
@@ -17,7 +15,7 @@ new TimeTicking({
 })
 ```
 
-** ATTR **
+* ATTR 
 ```
     long || site类型：
         longPast	//long类型，已经过去多长时间
@@ -30,6 +28,7 @@ new TimeTicking({
         this.tdate.m	//秒
     
 ```
+
 
 
 
@@ -55,4 +54,3 @@ API
         this.tdate.m	//秒
 */
 ```
-
