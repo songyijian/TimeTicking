@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>2.2.0</title>
 </head>
 <body>
 	<div>
@@ -13,22 +13,26 @@
 
 	<div>
 		<h3>long</h3>
-
 		15秒后自动关闭：<span id="long_box_t"></span>
+		<br>
+		<input type="button" value="btn">	
 		</hr>		
 	</div>
 
 	<div>
 		<h3>site</h3>
-
 		25 次后自动关闭：<span id="site_box_t"></span>
+		<br>
+		<input type="button" value="btn">
 		</hr>		
 	</div>
 
 
 
-	<script src="src/TimeTicking.2.1.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="src/TimeTicking.2.2.0.js" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript">
+		var btn = document.querySelectorAll("input")
+
 
 	   	//倒计时 应用 ==================
 	   	var odatebox=document.getElementById('date_box_t');
@@ -41,7 +45,7 @@
 				console.log('倒计时结束')
 			},
 			timeFn:function(o){
-				console.log(o.tdate)
+				//console.log(o.tdate)
 				odatebox.innerHTML=o.tdate.t+"天"+o.tdate.s+"时"+o.tdate.f+"分"+o.tdate.m+"秒";
 			}
 		})
@@ -49,9 +53,10 @@
 
 		//倒计时 应用 ==================
 	   	var olongbox=document.getElementById('long_box_t');
-		new TimeTicking({
+		var t2 = new TimeTicking({
 			stopdata:1000*15, 
 			type:'long',
+			play:false ,
 			setIntervalData:1000,
 			timeOverFn:function(o){
 				olongbox.innerHTML = '倒计时结束';
@@ -61,10 +66,20 @@
 			}
 		})
 
+		btn[0].onclick = function (argument) {
+			this.kg = !this.kg;
+			if(this.kg){
+				t2.play()
+			}else{
+				t2.stop()
+			}	
+		}
+
+
 
 		//倒计时 应用 ==================
 	   	var ositebox=document.getElementById('site_box_t');
-		new TimeTicking({
+		var t3 = new TimeTicking({
 			type:'site',
 			stopdata:25, 
 			setIntervalData:500,
@@ -75,6 +90,16 @@
 				ositebox.innerHTML = "刷新了/" + o.pastnumber + '次';
 			}
 		})
+
+		btn[1].onclick = function (argument){
+			this.kg = !this.kg;
+			if(this.kg){
+				t3.stop()
+			}else{
+				t3.play()
+			}
+		}
+
 
 
 	</script>

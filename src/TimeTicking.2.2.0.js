@@ -43,7 +43,13 @@
 		this.data = {
 			type:obj.type || 'date',	//date:目标日期;	long:多长时间后自动结束；site 次数 
 			stopdata:obj.stopdata,		//"Jun 23, 2017 00:00:01"
-			play:true,					//Boolean 创建后就开始自动倒数计时
+			play:function(){			//Boolean 创建后就开始自动倒数计时
+				if(typeof obj.play === 'boolean' && obj.play === false){
+					return false
+				}else{
+					return true;
+				}
+			}(),
 			setIntervalData:  obj.setIntervalData && typeof obj.setIntervalData === "number" ? obj.setIntervalData : false,	//不小于1000（1秒）
 			stopFn: obj.stopFn || function(_this){},
 			initFn:obj.initFn || function(o){},
@@ -84,8 +90,8 @@
 			}
 			clearInterval(this.ntimego)
 	   		this.ntimego=setInterval(function(){
-	   			if(this.data.type ==='long'){ _this.longTrade(); }
-	   			if(this.data.type ==='site'){ _this.siteTrade(); }
+	   			if(_this.data.type ==='long'){ _this.longTrade(); }
+	   			if(_this.data.type ==='site'){ _this.siteTrade(); }
 	   		},this.data.setIntervalData);
 	   		
 			return;
