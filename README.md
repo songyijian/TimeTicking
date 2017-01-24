@@ -1,4 +1,4 @@
-# TimeTicking     倒计（时定）组件
+# TimeTicking     倒计时组件
 
 ### 版本更新说明：2.2.0
 * 增加了一个play配置属性，和两个配置回调函数 playFn（） stopFn（） 
