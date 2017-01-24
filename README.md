@@ -1,9 +1,8 @@
 # TimeTicking.2.2.0     倒计（时定）组件
 
-### 2.2.0 版本更新说明：
-
-	1.增加了一个play配置属性，和两个配置回调函数 playFn（） stopFn（） 
-	2.暴露两个方法 .play(fn) .stop(fn) 两个方法，用来控制倒计时
+### 版本更新说明：2.2.0
+* 增加了一个play配置属性，和两个配置回调函数 playFn（） stopFn（） 
+* 暴露两个方法 .play(fn) .stop(fn) 两个方法，用来控制倒计时
 
 
  
@@ -39,14 +38,13 @@ ATTR
 	long || site类型：
 		longPast	//long类型，已经过去多长时间
 		pastnumber	//多少次
+		
 ```
-
 
 
 
 ## API TimeTicking.2.1.0 
  
-* 配置
 
 ```
 new TimeTicking({
@@ -57,41 +55,40 @@ new TimeTicking({
     timeFn:function(_this){	},			//倒计时进程回调 o === this
     timeOverFn:function(_this){	}		//倒计时结束回调 
 })
+
+
+ATTR 
+
+long || site类型：
+    longPast	//long类型，已经过去多长时间
+    pastnumber	//多少次
+
+date类型：
+    this.tdate.t  	//天
+    this.tdate.s	//小时
+    this.tdate.f	//分钟
+    this.tdate.m	//秒
+
 ```
 
- ATTR 
 
-	long || site类型：
-	    longPast	//long类型，已经过去多长时间
-	    pastnumber	//多少次
-	
-	date类型：
-	    this.tdate.t  	//天
-	    this.tdate.s	//小时
-	    this.tdate.f	//分钟
-	    this.tdate.m	//秒
-
-```
 
 ## API TimeTicking.1.0.0 
 
 * 1.0.0 只对 "某年某月某分" 的倒计时做了封装
 
 ```
-/*
+new TimeTicking({
+    nextTime:"Jun 14, 2018 0:0:01", 	//* 距离时间	// January、February、March、April、May、June、 July、August、September、October、November、December 
+    setIntervalData:1000, 				//倒计时刷新频率(毫秒)，不填不刷新
+    timeFn:function(_this){	},			//倒计时进程回调 o === this
+    timeOverFn:function(_this){	}		//倒计时结束回调 
+})
 
+ATTR 
+    this.tdate.t  	//天
+    this.tdate.s	//小时
+    this.tdate.f	//分钟
+    this.tdate.m	//秒
 
-    new TimeTicking({
-        nextTime:"Jun 14, 2018 0:0:01", 	//* 距离时间	// January、February、March、April、May、June、 July、August、September、October、November、December 
-        setIntervalData:1000, 				//倒计时刷新频率(毫秒)，不填不刷新
-        timeFn:function(_this){	},			//倒计时进程回调 o === this
-        timeOverFn:function(_this){	}		//倒计时结束回调 
-    })
-
-    ATTR 
-        this.tdate.t  	//天
-        this.tdate.s	//小时
-        this.tdate.f	//分钟
-        this.tdate.m	//秒
-*/
 ```
