@@ -1,12 +1,12 @@
-# TimeTicking.2.2.0     倒计（时定）组件
+# TimeTicking     倒计（时定）组件
 
 ### 版本更新说明：2.2.0
 * 增加了一个play配置属性，和两个配置回调函数 playFn（） stopFn（） 
 * 暴露两个方法 .play(fn) .stop(fn) 两个方法，用来控制倒计时
 
 
- 
-* 配置
+
+## API TimeTicking.2.2.0 
 
 ```
 new TimeTicking({
@@ -75,7 +75,7 @@ date类型：
 
 ## API TimeTicking.1.0.0 
 
-* 1.0.0 只对 "某年某月某分" 的倒计时做了封装
+#### 1.0.0 只对 "某年某月某分" 的倒计时做了封装
 
 ```
 new TimeTicking({
