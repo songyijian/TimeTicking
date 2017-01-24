@@ -57,7 +57,7 @@
 			stopdata:1000*15, 
 			type:'long',
 			play:false ,
-			setIntervalData:1000,
+			setIntervalData:500,
 			timeOverFn:function(o){
 				olongbox.innerHTML = '倒计时结束';
 			},
@@ -69,9 +69,9 @@
 		btn[0].onclick = function (argument) {
 			this.kg = !this.kg;
 			if(this.kg){
-				t2.play()
+				t2.play(function(_this){alert("t2 go")})
 			}else{
-				t2.stop()
+				t2.stop(function(_this){alert("t2 stop")})
 			}	
 		}
 

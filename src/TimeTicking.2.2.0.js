@@ -1,8 +1,8 @@
 /*
 	TimeTicking 2.2.0 倒计时组件（指定年月日 || 指定多长时间后 || 指定多少次 ）
 	作者：songyijian 
-	发布：2016.10.20
-			2017.1.16
+	发布：2017.1.23
+			
 	
 	API
 		new TimeTicking({
@@ -10,14 +10,16 @@
 			type:'date',						//date:目标日期(年月日);	long:多长时间内; site 次数 
 			play:true,							//Boolean 创建后就开始自动倒数计时  默认初始化便开始
 			setIntervalData:1000, 				//倒计时刷新频率(毫秒)，不填不刷新
-			initFn:function(_this){	},			//初始化回调
+			initFn:function(_this){	},			//函数初始化回调
+			playFn:function(_this){},			//倒计时开始回调
+			stopFn:function(_this){},			//暂停回调
 			timeFn:function(_this){	},			//倒计时进程回调 o === this
 			timeOverFn:function(_this){	}		//倒计时结束回调 
 		})
 		
 		FN:	
-			.play()		//开始倒计时
-			.stop(fn)	//暂停	可以传出一个
+			.play(fn)		//开始倒计时 【可传入一个函数，将覆盖配置的 playFn】 只是一个花式写法
+			.stop(fn)		//暂停  【可传入一个函数，将覆盖配置的 stopFn】
 					
 			**其实上面 两个方法对于 long、site 类型更 有意义
 			
@@ -51,8 +53,9 @@
 				}
 			}(),
 			setIntervalData:  obj.setIntervalData && typeof obj.setIntervalData === "number" ? obj.setIntervalData : false,	//不小于1000（1秒）
-			stopFn: obj.stopFn || function(_this){},
 			initFn:obj.initFn || function(o){},
+			playFn: obj.playFn || function(_this){},
+			stopFn: obj.stopFn || function(_this){},
 			timeOverFn:obj.timeOverFn || function(o){},
 			timeFn:obj.timeFn || function(o){}
 		};
@@ -76,11 +79,16 @@
 		if(this.data.play){
 			this.play();
 		}
+		
+		return this;
 	}
 	
 	
-	TimeTicking.prototype.play=function(){
+	TimeTicking.prototype.play=function(fn){
 		var _this=this;
+		
+		if(fn) this.data.playFn = fn;
+		this.data.playFn(this);
 		
 		//site //long
 		if(this.data.type ==='long' || this.data.type ==='site'){
@@ -94,7 +102,7 @@
 	   			if(_this.data.type ==='site'){ _this.siteTrade(); }
 	   		},this.data.setIntervalData);
 	   		
-			return;
+			return this;
 		}
 		
 		//date
@@ -105,16 +113,17 @@
 	   		this.ntimego=setInterval(function(){
 	   			_this.timeTrade();
 	   		},this.data.setIntervalData);
-		};
+	   		
+	   		return this;
+		}
 	}
 	
 	
 	TimeTicking.prototype.stop=function(fn){
-		if(fn){
-			this.data.stopFn = fn;
-		}
+		if(fn) this.data.stopFn = fn;
 		clearInterval(this.ntimego);
 		this.data.stopFn(this);
+		return this;
 	}
 	
 	
@@ -127,7 +136,7 @@
 			this.data.timeOverFn(this)
 			clearInterval(this.ntimego);
 			this.interval = false;
-			return;
+			return this;
 		}
 		
 		this.tdate.t=Math.floor(this.minusT/86400);
@@ -136,6 +145,8 @@
 		this.tdate.m=Math.floor(this.minusT%60);
 		
 		this.data.timeFn(this);
+		
+		return this;
 	};
 	
 	TimeTicking.prototype.longTrade=function(){
@@ -144,9 +155,10 @@
 		if(this.longPast >= this.data.stopdata){
 			this.data.timeOverFn(this)
 			clearInterval(this.ntimego)
-			return;
+			return this;
 		}
 		this.data.timeFn(this);
+		return this;
 	};
 	
 	TimeTicking.prototype.siteTrade=function(){
@@ -158,6 +170,7 @@
 			return;
 		}
 		this.data.timeFn(this);
+		return this;
 	};
 	
 	
