@@ -9,7 +9,7 @@
 			stopdata:"Jun 14, 2018 0:0:01", 	//* 距离时间	// January、February、March、April、May、June、 July、August、September、October、November、December 
 			type:'date',						//date:目标日期(年月日);	long:多长时间内; site 次数 
 			play:true,							//Boolean 创建后就开始自动倒数计时  默认初始化便开始
-			setIntervalData:1000, 				//倒计时刷新频率(毫秒)，不填不刷新
+			setIntervalData:1000, 				//倒计时刷新频率(毫秒)，默认是 1000毫秒
 			initFn:function(_this){	},			//函数初始化回调
 			playFn:function(_this){},			//倒计时开始回调
 			stopFn:function(_this){},			//暂停回调
@@ -52,10 +52,10 @@
 					return true;
 				}
 			}(),
-			setIntervalData:  obj.setIntervalData && typeof obj.setIntervalData === "number" ? obj.setIntervalData : false,	//不小于1000（1秒）
+			setIntervalData:  obj.setIntervalData && typeof obj.setIntervalData === "number" ? obj.setIntervalData : 1000,	//不小于1000（1秒）
 			initFn:obj.initFn || function(o){},
-			playFn: obj.playFn || function(_this){},
-			stopFn: obj.stopFn || function(_this){},
+			playFn:obj.playFn || function(_this){},
+			stopFn:obj.stopFn || function(_this){},
 			timeOverFn:obj.timeOverFn || function(o){},
 			timeFn:obj.timeFn || function(o){}
 		};
